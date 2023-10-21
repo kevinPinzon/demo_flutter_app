@@ -8,3 +8,8 @@ class ResponseCode {
 }
 
 enum CustomButtonStyle { yellow, black, outline, disabled }
+
+enum AuthScreenType {
+  login,
+  signUp,
+}

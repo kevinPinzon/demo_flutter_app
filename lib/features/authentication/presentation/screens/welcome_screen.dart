@@ -4,6 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../core/routes/resource_images.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../generated/l10n.dart';
+import 'login_screen.dart';
+import 'signup_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   static const routeName = 'authentication/welcome-screen';
@@ -48,14 +50,18 @@ class WelcomeScreen extends StatelessWidget {
   Widget _goCreateAccount(NavigatorState router, S lang) {
     return CustomButton(
       text: lang.createAccount,
-      onPressed: () {},
+      onPressed: () => router.pushNamed(
+        SignUpScreen.routeName,
+      ),
     );
   }
 
   Widget _goLogin(NavigatorState router, S lang) {
     return CustomButton(
       text: lang.login,
-      onPressed: () {},
+      onPressed: () => router.pushNamed(
+        LoginScreen.routeName,
+      ),
     );
   }
 }
