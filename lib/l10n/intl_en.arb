@@ -19,10 +19,8 @@
   "welcome": "Welcome!",
   "loginSuccessful": "Successful login",
   "registerSuccessful": "Your registration has been successful!",
-  "productsTitle": "List of products",
   "errorEmailAlreadyUse": "The account already exists for that email.",
   "errorWeakPassword": "The password provided is too weak.",
   "errorUserNotFound": "No user found for that email.",
   "wrongPassword": "Wrong password provided for that user.",
-  "productsText": "Trending Products"
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'core/routes/page_generate.dart';
+import 'features/init/presentation/screens/splash_screen.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
 
@@ -19,8 +21,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Products App',
+      title: 'Demo App',
       debugShowCheckedModeBanner: false,
+      initialRoute: SplashScreen.routeName,
+      onGenerateRoute: PageClassGenerator.getNamedScreen,
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

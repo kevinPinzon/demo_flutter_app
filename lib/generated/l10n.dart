@@ -49,6 +49,266 @@ class S {
   static S? maybeOf(BuildContext context) {
     return Localizations.of<S>(context, S);
   }
+
+  /// `Demo app`
+  String get title {
+    return Intl.message(
+      'Demo app',
+      name: 'title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create account`
+  String get createAccount {
+    return Intl.message(
+      'Create account',
+      name: 'createAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log in`
+  String get login {
+    return Intl.message(
+      'Log in',
+      name: 'login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign Up`
+  String get signUp {
+    return Intl.message(
+      'Sign Up',
+      name: 'signUp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your Email`
+  String get emailHintText {
+    return Intl.message(
+      'Enter your Email',
+      name: 'emailHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password`
+  String get password {
+    return Intl.message(
+      'Password',
+      name: 'password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your password`
+  String get enterPassword {
+    return Intl.message(
+      'Enter your password',
+      name: 'enterPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get email {
+    return Intl.message(
+      'Email',
+      name: 'email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your password`
+  String get passwordHintText {
+    return Intl.message(
+      'Enter your password',
+      name: 'passwordHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a valid email`
+  String get errorInvalidEmail {
+    return Intl.message(
+      'Enter a valid email',
+      name: 'errorInvalidEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter a valid password`
+  String get errorInvalidPassword {
+    return Intl.message(
+      'Enter a valid password',
+      name: 'errorInvalidPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Already have an account?`
+  String get alreadyHaveAnAccount {
+    return Intl.message(
+      'Already have an account?',
+      name: 'alreadyHaveAnAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't you have an account yet?`
+  String get doNotHaveAccount {
+    return Intl.message(
+      'Don\'t you have an account yet?',
+      name: 'doNotHaveAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `SIGN UP WITH`
+  String get registerWith {
+    return Intl.message(
+      'SIGN UP WITH',
+      name: 'registerWith',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `LOG IN WITH`
+  String get loginWith {
+    return Intl.message(
+      'LOG IN WITH',
+      name: 'loginWith',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accept`
+  String get accept {
+    return Intl.message(
+      'Accept',
+      name: 'accept',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Welcome!`
+  String get welcome {
+    return Intl.message(
+      'Welcome!',
+      name: 'welcome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Successful login`
+  String get loginSuccessful {
+    return Intl.message(
+      'Successful login',
+      name: 'loginSuccessful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your registration has been successful!`
+  String get registerSuccessful {
+    return Intl.message(
+      'Your registration has been successful!',
+      name: 'registerSuccessful',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `List of products`
+  String get productsTitle {
+    return Intl.message(
+      'List of products',
+      name: 'productsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The account already exists for that email.`
+  String get errorEmailAlreadyUse {
+    return Intl.message(
+      'The account already exists for that email.',
+      name: 'errorEmailAlreadyUse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The password provided is too weak.`
+  String get errorWeakPassword {
+    return Intl.message(
+      'The password provided is too weak.',
+      name: 'errorWeakPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No user found for that email.`
+  String get errorUserNotFound {
+    return Intl.message(
+      'No user found for that email.',
+      name: 'errorUserNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong password provided for that user.`
+  String get wrongPassword {
+    return Intl.message(
+      'Wrong password provided for that user.',
+      name: 'wrongPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trending Products`
+  String get productsText {
+    return Intl.message(
+      'Trending Products',
+      name: 'productsText',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -57,6 +317,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'es', countryCode: 'ES'),
     ];
   }
 

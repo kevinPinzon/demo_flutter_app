@@ -19,11 +19,9 @@
   "welcome": "¡Bienvenido!",
   "loginSuccessful": "Inicio de sesión exitoso",
   "registerSuccessful": "¡Tu registro ha sido exitoso!",
-  "productsTitle": "Lista de productos",
   "errorEmailAlreadyUse": "La cuenta ya existe para ese correo electrónico.",
   "errorWeakPassword": "La contraseña proporcionada es demasiado débil.",
   "errorUserNotFound": "No se ha encontrado ningún usuario para ese correo electrónico.",
   "wrongPassword": "Contraseña incorrecta proporcionada para ese usuario.",
-  "productsText": "Productos en tendencia"
 
 }
