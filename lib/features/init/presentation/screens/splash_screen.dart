@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -5,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import '../../../../core/routes/resource_images.dart';
 import '../../../../core/theme/sizes.dart';
 import '../../../../generated/l10n.dart';
+import '../../../authentication/presentation/screens/welcome_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   static const routeName = '/';
@@ -15,9 +18,11 @@ class SplashScreen extends StatelessWidget {
     await Future.delayed(const Duration(seconds: 3));
 
     if (FirebaseAuth.instance.currentUser != null) {
-      print('user detected');
+      log('user detected');
     } else {
-      print('user dont detected');
+      // ignore: use_build_context_synchronously
+      if (!context.mounted) return;
+      Navigator.of(context).pushReplacementNamed(WelcomeScreen.routeName);
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
+import '../../features/authentication/presentation/screens/welcome_screen.dart';
 import '../../features/init/presentation/screens/splash_screen.dart';
 
 class PageClassGenerator {
@@ -10,6 +11,9 @@ class PageClassGenerator {
     switch (routeSettings.name) {
       case SplashScreen.routeName:
         builder = (context) => const SplashScreen();
+        break;
+      case WelcomeScreen.routeName:
+        builder = (context) => const WelcomeScreen();
         break;
       default:
         builder = (context) => const Material(
