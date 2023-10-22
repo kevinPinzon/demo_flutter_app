@@ -8,7 +8,7 @@ import 'package:lottie/lottie.dart';
 import '../../../../core/routes/resource_images.dart';
 import '../../../../core/theme/sizes.dart';
 import '../../../../generated/l10n.dart';
-import '../../../authentication/presentation/screens/welcome_screen.dart';
+import 'welcome_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   static const routeName = '/';

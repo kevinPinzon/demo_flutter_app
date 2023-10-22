@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:demo_flutter_app/features/city/data/models/city.dart';
 import 'package:demo_flutter_app/features/city/presentation/bloc/city_bloc.dart';
 import 'package:demo_flutter_app/features/city/presentation/widgets/city_card.dart';
+import 'package:demo_flutter_app/features/user/bloc/user_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,12 +14,13 @@ import '../../../../core/widgets/custom_loading_widget.dart';
 import '../../../../generated/l10n.dart';
 import '../widgets/error_widget.dart';
 
+// ignore: must_be_immutable
 class CityScreen extends StatelessWidget {
   static const routeName = 'city/city-screen';
 
   CityScreen({super.key});
 
-  // final CityBloc cityBloc = CityBloc();
+  final UserBloc userBloc = UserBloc();
   List<City> cityList = [];
 
   @override
@@ -31,21 +36,20 @@ class CityScreen extends StatelessWidget {
               BlocProvider<CityBloc>(
                 create: (context) => CityBloc()..add(GetCities()),
               ),
-              // BlocProvider<AuthBloc>(
-              //   create: (context) => authBloc,
-              // ),
+              BlocProvider<UserBloc>(
+                create: (context) => userBloc,
+              ),
             ],
             child: MultiBlocListener(
               listeners: [
-                BlocListener<CityBloc, CityState>(listener: (context, state) {
-                  // if (state is CityLoaded) {
-                  //   Navigator.of(context)
-                  //       .pushReplacementNamed(WelcomeScreen.routeName);
-                  // } else if (state is AuthError) {
-                  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  //     content: Text('Error: ${state.message}'),
-                  //   ));
-                  // }
+                BlocListener<UserBloc, UserState>(listener: (context, state) {
+                  if (state is UserSuccess) {
+                    log('user saved');
+                  } else if (state is UserFailure) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('Error: ${state.message}'),
+                    ));
+                  }
                 })
               ],
               child: BlocBuilder<CityBloc, CityState>(
@@ -119,7 +123,13 @@ class CityScreen extends StatelessWidget {
               vertical: 1,
               horizontal: 1,
             ),
-            child: CityCard(city: cityList[index]),
+            child: CityCard(
+                city: cityList[index],
+                onTap: () {
+                  userBloc.add(AddUser(
+                      cityName: cityList[index].name,
+                      userId: FirebaseAuth.instance.currentUser!.uid));
+                }),
           );
         },
       ),

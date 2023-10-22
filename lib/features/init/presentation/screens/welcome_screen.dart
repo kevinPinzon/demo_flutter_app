@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../core/routes/resource_images.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../generated/l10n.dart';
-import 'login_screen.dart';
-import 'signup_screen.dart';
+import '../../../authentication/presentation/screens/login_screen.dart';
+import '../../../authentication/presentation/screens/signup_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   static const routeName = 'authentication/welcome-screen';
@@ -27,7 +27,7 @@ class WelcomeScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         const SizedBox(),
-        Center(child: SvgPicture.asset(flutterletter, height: 150)),
+        Center(child: SvgPicture.asset(flutterLetter, height: 150)),
         const SizedBox(),
         _actions(context, lang),
       ],

@@ -4,7 +4,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../features/authentication/presentation/screens/login_screen.dart';
 import '../../features/authentication/presentation/screens/signup_screen.dart';
-import '../../features/authentication/presentation/screens/welcome_screen.dart';
+import '../../features/init/presentation/screens/welcome_screen.dart';
 import '../../features/init/presentation/screens/splash_screen.dart';
 
 class PageClassGenerator {
