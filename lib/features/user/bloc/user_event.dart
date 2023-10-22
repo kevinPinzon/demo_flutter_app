@@ -18,10 +18,10 @@ class AddUser extends UserEvent {
   });
 }
 
-class FetchUsers extends UserEvent {
+class FetchUser extends UserEvent {
   final String userId;
 
-  const FetchUsers({
+  const FetchUser({
     required this.userId,
   });
 }

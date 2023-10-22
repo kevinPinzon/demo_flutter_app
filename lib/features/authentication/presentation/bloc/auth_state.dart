@@ -30,14 +30,22 @@ class Initial extends AuthState {}
 class Loading extends AuthState {}
 
 class CreateUserSuccessful extends AuthState {
-  const CreateUserSuccessful();
+  final String? userId;
+
+  const CreateUserSuccessful({
+    this.userId = '',
+  });
 
   @override
   List<Object> get props => [];
 }
 
 class SignInSuccessful extends AuthState {
-  const SignInSuccessful();
+  final String? userId;
+
+  const SignInSuccessful({
+    this.userId = '',
+  });
 
   @override
   List<Object> get props => [];

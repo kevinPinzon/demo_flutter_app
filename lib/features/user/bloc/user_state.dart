@@ -23,11 +23,13 @@ class UserFailure extends UserState {
   List<Object?> get props => [message];
 }
 
-class UsersFetched extends UserState {
-  final List<User> users;
+class UserFetched extends UserState {
+  final User user;
 
-  const UsersFetched(this.users);
+  const UserFetched(this.user);
 
   @override
-  List<Object?> get props => [users];
+  List<Object?> get props => [user];
 }
+
+class UserNotFound extends UserState {}

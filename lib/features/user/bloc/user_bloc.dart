@@ -30,5 +30,23 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         emit(UserFailure(e.toString()));
       }
     });
+    on<FetchUser>((event, emit) async {
+      try {
+        emit(UserLoading());
+        User? user;
+        user = await _userRepository.fetchUser(
+          event.userId,
+        );
+        if (user != null) {
+          emit(UserFetched(user));
+        } else {
+          emit(UserNotFound());
+        }
+      } catch (e, s) {
+        log(e.toString());
+        log(s.toString());
+        emit(UserFailure(e.toString()));
+      }
+    });
   }
 }

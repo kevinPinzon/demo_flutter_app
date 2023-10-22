@@ -6,6 +6,7 @@ import '../../features/authentication/presentation/screens/login_screen.dart';
 import '../../features/authentication/presentation/screens/signup_screen.dart';
 import '../../features/init/presentation/screens/welcome_screen.dart';
 import '../../features/init/presentation/screens/splash_screen.dart';
+import '../../features/product/presentation/screens/products_screen.dart';
 
 class PageClassGenerator {
   static Route<dynamic> getNamedScreen(RouteSettings routeSettings) {
@@ -26,6 +27,9 @@ class PageClassGenerator {
         break;
       case CityScreen.routeName:
         builder = (context) => CityScreen();
+        break;
+      case ProductsScreen.routeName:
+        builder = (context) => ProductsScreen();
         break;
       default:
         builder = (context) => const Material(

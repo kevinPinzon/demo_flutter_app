@@ -18,11 +18,11 @@ class UserRepository {
     );
   }
 
-  Future<List<User>> fetchUsers(String clientId) async {
+  Future<List<User>> fetchUsers(String userId) async {
     final QuerySnapshot snapshot = await _db.getDocumentsWithQuery(
       "users",
       "userId",
-      clientId,
+      userId,
     );
     return snapshot.docs
         .map(
@@ -31,5 +31,15 @@ class UserRepository {
           ),
         )
         .toList();
+  }
+
+  Future<User?> fetchUser(String userId) async {
+    final DocumentSnapshot snapshot = await _db.getDocument("users", userId);
+
+    if (snapshot.exists) {
+      return User.fromMap(snapshot.data() as Map<String, dynamic>);
+    } else {
+      return null;
+    }
   }
 }

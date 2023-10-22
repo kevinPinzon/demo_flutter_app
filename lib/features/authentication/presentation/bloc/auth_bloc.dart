@@ -36,11 +36,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }) async {
     try {
       emit(Loading());
-      await _authService.createUser(
+      String? userId = '';
+      userId = await _authService.createUser(
         email: authState.email,
         password: authState.password,
       );
-      return emit(const CreateUserSuccessful());
+      return emit(CreateUserSuccessful(userId: userId));
     } on FirebaseAuthException catch (e) {
       log('Code: ${e.code}, Message: ${e.message}');
       return emit(AuthError(message: e.message));
@@ -53,11 +54,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }) async {
     try {
       emit(Loading());
-      await _authService.signIn(
+      String? userId = '';
+      userId = await _authService.signIn(
         email: authState.email,
         password: authState.password,
       );
-      return emit(const SignInSuccessful());
+      return emit(SignInSuccessful(userId: userId));
     } on FirebaseAuthException catch (e) {
       log('Code: ${e.code}, Message: ${e.message}');
       return emit(AuthError(message: e.message, code: e.code));

@@ -13,6 +13,8 @@ import '../../../../core/widgets/custom_input_widget.dart';
 import '../../../../core/widgets/custom_loading_widget.dart';
 import '../../../../generated/l10n.dart';
 
+import '../../../product/presentation/screens/products_screen.dart';
+import '../../../user/bloc/user_bloc.dart';
 import '../../utils/keyboard_actions_configs.dart';
 import '../../utils/validation_methods.dart';
 import '../bloc/auth_bloc.dart';
@@ -22,6 +24,7 @@ abstract class AuthScreen extends StatelessWidget {
   final FocusNode emailNode = FocusNode();
   final FocusNode pwdNode = FocusNode();
   final AuthBloc authBloc = AuthBloc();
+  final UserBloc userBloc = UserBloc();
 
   final AuthScreenType authScreen;
 
@@ -40,55 +43,87 @@ abstract class AuthScreen extends StatelessWidget {
     final String buttonLabel =
         authScreen == AuthScreenType.login ? lang.login : lang.createAccount;
 
-    return BlocProvider(
-      create: (context) => authBloc,
-      child: BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if ((state is CreateUserSuccessful) || state is SignInSuccessful) {
-            final successMessage = authScreen == AuthScreenType.login
-                ? lang.loginSuccessful
-                : lang.registerSuccessful;
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(successMessage),
-            ));
-            if (authScreen == AuthScreenType.login) {
-              log('go to next screen after login with success.');
-            } else {
-              Navigator.of(context).pushReplacementNamed(CityScreen.routeName);
-            }
-          } else if (state is AuthError) {
-            String? errorMessage;
-            switch (state.code) {
-              case 'email-already-in-use':
-                errorMessage = lang.errorEmailAlreadyUse;
-                break;
-              case 'error-weak-password':
-                errorMessage = lang.errorWeakPassword;
-                break;
-              case 'wrong-password':
-                errorMessage = lang.wrongPassword;
-                break;
-              case 'user-not-found':
-              case 'INVALID_LOGIN_CREDENTIALS':
-                errorMessage = lang.errorUserNotFound;
-                break;
-              default:
-                errorMessage = state.message;
-                break;
-            }
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('Error: $errorMessage'),
-            ));
-          }
-        },
-        builder: (context, state) {
-          return Stack(
-            children: [
-              _buildBody(context, lang, appBarTitle, buttonLabel),
-              if (state is Loading) const CustomLoadingWidget(),
-            ],
-          );
-        },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(
+          create: (context) => authBloc,
+        ),
+        BlocProvider<UserBloc>(
+          create: (context) => userBloc,
+        ),
+      ],
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<UserBloc, UserState>(
+            listener: (context, state) {
+              if (state is UserFetched) {
+                Navigator.of(context)
+                    .pushReplacementNamed(ProductsScreen.routeName);
+              } else if (state is UserNotFound) {
+                Navigator.of(context)
+                    .pushReplacementNamed(CityScreen.routeName);
+              } else if (state is UserFailure) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Error: ${state.message}'),
+                ));
+              }
+            },
+          ),
+          BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is CreateUserSuccessful) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(lang.registerSuccessful),
+                ));
+                Navigator.of(context)
+                    .pushReplacementNamed(CityScreen.routeName);
+              } else if (state is SignInSuccessful) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(lang.loginSuccessful),
+                ));
+                if (state.userId != null) {
+                  userBloc.add(FetchUser(userId: state.userId!));
+                } else {
+                  Navigator.of(context)
+                      .pushReplacementNamed(CityScreen.routeName);
+                }
+              } else if (state is AuthError) {
+                String? errorMessage;
+                switch (state.code) {
+                  case 'email-already-in-use':
+                    errorMessage = lang.errorEmailAlreadyUse;
+                    break;
+                  case 'error-weak-password':
+                    errorMessage = lang.errorWeakPassword;
+                    break;
+                  case 'wrong-password':
+                    errorMessage = lang.wrongPassword;
+                    break;
+                  case 'user-not-found':
+                  case 'INVALID_LOGIN_CREDENTIALS':
+                    errorMessage = lang.errorUserNotFound;
+                    break;
+                  default:
+                    errorMessage = state.message;
+                    break;
+                }
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Error: $errorMessage'),
+                ));
+              }
+            },
+          )
+        ],
+        child: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            return Stack(
+              children: [
+                _buildBody(context, lang, appBarTitle, buttonLabel),
+                if (state is Loading) const CustomLoadingWidget(),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

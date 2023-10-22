@@ -1,28 +1,26 @@
-import 'dart:developer';
-
-import 'package:demo_flutter_app/features/city/data/models/city.dart';
-import 'package:demo_flutter_app/features/city/presentation/bloc/city_bloc.dart';
-import 'package:demo_flutter_app/features/city/presentation/widgets/city_card.dart';
-import 'package:demo_flutter_app/features/user/bloc/user_bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/theme/sizes.dart';
 import '../../../../core/widgets/custom_appbar_widget.dart';
 import '../../../../core/widgets/custom_loading_widget.dart';
 import '../../../../generated/l10n.dart';
-import '../../../product/presentation/screens/products_screen.dart';
+import '../../../authentication/presentation/bloc/auth_bloc.dart';
+
+import '../../../init/presentation/screens/welcome_screen.dart';
+import '../../data/models/product.dart';
+import '../../data/repositories/product_repository.dart';
+import '../bloc/product_bloc.dart';
 import '../widgets/error_widget.dart';
+import '../widgets/product_card.dart';
 
 // ignore: must_be_immutable
-class CityScreen extends StatelessWidget {
-  static const routeName = 'city/city-screen';
+class ProductsScreen extends StatelessWidget {
+  static const routeName = 'product/products-screen';
 
-  CityScreen({super.key});
+  ProductsScreen({super.key});
 
-  final UserBloc userBloc = UserBloc();
-  List<City> cityList = [];
+  final AuthBloc authBloc = AuthBloc();
+  List<Product> productList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -34,30 +32,31 @@ class CityScreen extends StatelessWidget {
         },
         child: MultiBlocProvider(
             providers: [
-              BlocProvider<CityBloc>(
-                create: (context) => CityBloc()..add(GetCities()),
+              BlocProvider<ProductBloc>(
+                create: (context) =>
+                    ProductBloc(ProductRepository())..add(LoadProductsEvent()),
               ),
-              BlocProvider<UserBloc>(
-                create: (context) => userBloc,
+              BlocProvider<AuthBloc>(
+                create: (context) => authBloc,
               ),
             ],
             child: MultiBlocListener(
               listeners: [
-                BlocListener<UserBloc, UserState>(listener: (context, state) {
-                  if (state is UserSuccess) {
+                BlocListener<AuthBloc, AuthState>(listener: (context, state) {
+                  if (state is LogOutSuccessful) {
                     Navigator.of(context)
-                        .pushReplacementNamed(ProductsScreen.routeName);
-                  } else if (state is UserFailure) {
+                        .pushReplacementNamed(WelcomeScreen.routeName);
+                  } else if (state is AuthError) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text('Error: ${state.message}'),
                     ));
                   }
                 })
               ],
-              child: BlocBuilder<CityBloc, CityState>(
+              child: BlocBuilder<ProductBloc, ProductState>(
                 builder: (context, state) {
-                  if (state is CityLoaded) {
-                    cityList = state.cities;
+                  if (state is ProductsLoaded) {
+                    productList = state.products;
                   }
                   return Scaffold(
                       appBar: AppBar(
@@ -67,13 +66,13 @@ class CityScreen extends StatelessWidget {
                         children: [
                           Padding(
                               padding: const EdgeInsets.only(
-                                  left: 5, right: 5, top: 20, bottom: 10),
+                                  left: 10, right: 10, top: 20, bottom: 10),
                               child: _buildBody(context, lang)),
                           Visibility(
-                              visible: (state is CityLoading),
+                              visible: (state is ProductsLoading),
                               child: const CustomLoadingWidget()),
                           Visibility(
-                              visible: state is CityError,
+                              visible: state is ProductError,
                               child: const CustomErrorWidget(
                                   message: 'Oops! unexpected error')),
                         ],
@@ -87,30 +86,13 @@ class CityScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // const Expanded(
-        //   flex: 1,
-        //   child: SizedBox(),
-        // ),
-        Expanded(
-          flex: 1,
-          child: Center(
-            child: Text(
-              lang.cityText,
-              style: const TextStyle(
-                fontSize: bigTextSize,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        _cityList(),
+        _productList(),
       ],
     );
   }
 
-  Expanded _cityList() {
+  Expanded _productList() {
     return Expanded(
-      flex: 7,
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
@@ -118,20 +100,14 @@ class CityScreen extends StatelessWidget {
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,
         ),
-        itemCount: cityList.length,
+        itemCount: productList.length,
         itemBuilder: (_, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 1,
               horizontal: 1,
             ),
-            child: CityCard(
-                city: cityList[index],
-                onTap: () {
-                  userBloc.add(AddUser(
-                      cityName: cityList[index].name,
-                      userId: FirebaseAuth.instance.currentUser!.uid));
-                }),
+            child: ProductCard(product: productList[index]),
           );
         },
       ),
