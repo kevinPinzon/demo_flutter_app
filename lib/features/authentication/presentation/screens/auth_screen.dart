@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:demo_flutter_app/features/city/presentation/screens/city_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -50,7 +51,11 @@ abstract class AuthScreen extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(successMessage),
             ));
-            log('go to next screen');
+            if (authScreen == AuthScreenType.login) {
+              log('go to next screen after login with success.');
+            } else {
+              Navigator.of(context).pushReplacementNamed(CityScreen.routeName);
+            }
           } else if (state is AuthError) {
             String? errorMessage;
             switch (state.code) {

@@ -1,5 +1,5 @@
 {
-  "title": "Demo app",
+  "title": "Sport App",
   "createAccount": "Crear cuenta",
   "login": "Iniciar sesión",
   "signUp": "Registrarse",
@@ -23,5 +23,5 @@
   "errorWeakPassword": "La contraseña proporcionada es demasiado débil.",
   "errorUserNotFound": "No se ha encontrado ningún usuario para ese correo electrónico.",
   "wrongPassword": "Contraseña incorrecta proporcionada para ese usuario.",
-
+  "cityText": "Selecciona una ciudad:"
 }

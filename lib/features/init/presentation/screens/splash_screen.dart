@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:demo_flutter_app/features/city/presentation/screens/city_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -18,7 +19,9 @@ class SplashScreen extends StatelessWidget {
     await Future.delayed(const Duration(seconds: 3));
 
     if (FirebaseAuth.instance.currentUser != null) {
-      log('user detected');
+      // ignore: use_build_context_synchronously
+      if (!context.mounted) return;
+      Navigator.of(context).pushReplacementNamed(CityScreen.routeName);
     } else {
       // ignore: use_build_context_synchronously
       if (!context.mounted) return;
@@ -38,7 +41,7 @@ class SplashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Lottie.asset(
-              dogAnimation,
+              ballAnimation,
               height: 300,
               fit: BoxFit.contain,
             ),

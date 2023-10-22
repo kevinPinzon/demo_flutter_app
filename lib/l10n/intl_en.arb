@@ -1,5 +1,5 @@
 {
-  "title": "Demo app",
+  "title": "Sport App",
   "createAccount": "Create account",
   "login": "Log in",
   "signUp": "Sign Up",
@@ -23,4 +23,5 @@
   "errorWeakPassword": "The password provided is too weak.",
   "errorUserNotFound": "No user found for that email.",
   "wrongPassword": "Wrong password provided for that user.",
+  "cityText": "Choose A city:"
 }

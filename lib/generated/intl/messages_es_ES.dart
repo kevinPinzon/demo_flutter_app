@@ -26,6 +26,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "alreadyHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("¿Ya tienes una cuenta?"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
+        "cityText":
+            MessageLookupByLibrary.simpleMessage("Selecciona una ciudad:"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Crear cuenta"),
         "doNotHaveAccount":
             MessageLookupByLibrary.simpleMessage("¿Aún no tienes una cuenta?"),
@@ -51,15 +53,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Contraseña"),
         "passwordHintText":
             MessageLookupByLibrary.simpleMessage("Ingresa tu contraseña"),
-        "productsText":
-            MessageLookupByLibrary.simpleMessage("Productos en tendencia"),
-        "productsTitle":
-            MessageLookupByLibrary.simpleMessage("Lista de productos"),
         "registerSuccessful": MessageLookupByLibrary.simpleMessage(
             "¡Tu registro ha sido exitoso!"),
         "registerWith": MessageLookupByLibrary.simpleMessage("REGÍSTRATE CON"),
         "signUp": MessageLookupByLibrary.simpleMessage("Registrarse"),
-        "title": MessageLookupByLibrary.simpleMessage("Demo app"),
+        "title": MessageLookupByLibrary.simpleMessage("Sport App"),
         "welcome": MessageLookupByLibrary.simpleMessage("¡Bienvenido!"),
         "wrongPassword": MessageLookupByLibrary.simpleMessage(
             "Contraseña incorrecta proporcionada para ese usuario.")

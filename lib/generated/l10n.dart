@@ -50,10 +50,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Demo app`
+  /// `Sport App`
   String get title {
     return Intl.message(
-      'Demo app',
+      'Sport App',
       name: 'title',
       desc: '',
       args: [],
@@ -250,16 +250,6 @@ class S {
     );
   }
 
-  /// `List of products`
-  String get productsTitle {
-    return Intl.message(
-      'List of products',
-      name: 'productsTitle',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `The account already exists for that email.`
   String get errorEmailAlreadyUse {
     return Intl.message(
@@ -300,11 +290,11 @@ class S {
     );
   }
 
-  /// `Trending Products`
-  String get productsText {
+  /// `Choose A city:`
+  String get cityText {
     return Intl.message(
-      'Trending Products',
-      name: 'productsText',
+      'Choose A city:',
+      name: 'cityText',
       desc: '',
       args: [],
     );

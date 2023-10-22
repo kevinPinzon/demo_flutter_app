@@ -20,6 +20,7 @@ dependencies:
   modal_bottom_sheet: ^3.0.0-pre
   firebase_core: ^2.16.0
   firebase_auth: ^4.10.0
+  cloud_firestore: ^4.10.0
   flutter_svg: ^2.0.4
   google_fonts: ^4.0.3
   keyboard_actions: ^4.2.0
