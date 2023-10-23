@@ -47,14 +47,10 @@ class CustomButton extends StatelessWidget {
 
   Color _backgroundColor(BuildContext context) {
     switch (style) {
-      case CustomButtonStyle.yellow:
-        return Theme.of(context).colorScheme.primary;
-      case CustomButtonStyle.black:
-        return Theme.of(context).colorScheme.secondary;
       case CustomButtonStyle.disabled:
         return AppColors.disabled;
       default:
-        return Colors.white;
+        return Theme.of(context).appBarTheme.backgroundColor!;
     }
   }
 

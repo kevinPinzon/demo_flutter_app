@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/routes/resource_images.dart';
+import '../../../../core/theme/sizes.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../generated/l10n.dart';
 import '../../../authentication/presentation/screens/login_screen.dart';
@@ -26,10 +27,8 @@ class WelcomeScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        const SizedBox(),
-        Center(child: SvgPicture.asset(flutterLetter, height: 150)),
-        const SizedBox(),
-        _actions(context, lang),
+        Expanded(flex: 3, child: Center(child: Image.asset(ballsSports))),
+        Expanded(flex: 1, child: _actions(context, lang)),
       ],
     );
   }

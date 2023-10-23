@@ -43,87 +43,92 @@ abstract class AuthScreen extends StatelessWidget {
     final String buttonLabel =
         authScreen == AuthScreenType.login ? lang.login : lang.createAccount;
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<AuthBloc>(
-          create: (context) => authBloc,
-        ),
-        BlocProvider<UserBloc>(
-          create: (context) => userBloc,
-        ),
-      ],
-      child: MultiBlocListener(
-        listeners: [
-          BlocListener<UserBloc, UserState>(
-            listener: (context, state) {
-              if (state is UserFetched) {
-                Navigator.of(context).pushReplacementNamed(
-                    ProductsScreen.routeName,
-                    arguments: state.user);
-              } else if (state is UserNotFound) {
-                Navigator.of(context)
-                    .pushReplacementNamed(CityScreen.routeName);
-              } else if (state is UserFailure) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Error: ${state.message}'),
-                ));
-              }
-            },
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<AuthBloc>(
+            create: (context) => authBloc,
           ),
-          BlocListener<AuthBloc, AuthState>(
-            listener: (context, state) {
-              if (state is CreateUserSuccessful) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(lang.registerSuccessful),
-                ));
-                Navigator.of(context)
-                    .pushReplacementNamed(CityScreen.routeName);
-              } else if (state is SignInSuccessful) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(lang.loginSuccessful),
-                ));
-                if (state.userId != null) {
-                  userBloc.add(FetchUser(userId: state.userId!));
-                } else {
+          BlocProvider<UserBloc>(
+            create: (context) => userBloc,
+          ),
+        ],
+        child: MultiBlocListener(
+          listeners: [
+            BlocListener<UserBloc, UserState>(
+              listener: (context, state) {
+                if (state is UserFetched) {
+                  Navigator.of(context).pushReplacementNamed(
+                      ProductsScreen.routeName,
+                      arguments: state.user);
+                } else if (state is UserNotFound) {
                   Navigator.of(context)
                       .pushReplacementNamed(CityScreen.routeName);
+                } else if (state is UserFailure) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('Error: ${state.message}'),
+                  ));
                 }
-              } else if (state is AuthError) {
-                String? errorMessage;
-                switch (state.code) {
-                  case 'email-already-in-use':
-                    errorMessage = lang.errorEmailAlreadyUse;
-                    break;
-                  case 'error-weak-password':
-                    errorMessage = lang.errorWeakPassword;
-                    break;
-                  case 'wrong-password':
-                    errorMessage = lang.wrongPassword;
-                    break;
-                  case 'user-not-found':
-                  case 'INVALID_LOGIN_CREDENTIALS':
-                    errorMessage = lang.errorUserNotFound;
-                    break;
-                  default:
-                    errorMessage = state.message;
-                    break;
+              },
+            ),
+            BlocListener<AuthBloc, AuthState>(
+              listener: (context, state) {
+                if (state is CreateUserSuccessful) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(lang.registerSuccessful),
+                  ));
+                  Navigator.of(context)
+                      .pushReplacementNamed(CityScreen.routeName);
+                } else if (state is SignInSuccessful) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(lang.loginSuccessful),
+                  ));
+                  if (state.userId != null) {
+                    userBloc.add(FetchUser(userId: state.userId!));
+                  } else {
+                    Navigator.of(context)
+                        .pushReplacementNamed(CityScreen.routeName);
+                  }
+                } else if (state is AuthError) {
+                  String? errorMessage;
+                  switch (state.code) {
+                    case 'email-already-in-use':
+                      errorMessage = lang.errorEmailAlreadyUse;
+                      break;
+                    case 'error-weak-password':
+                      errorMessage = lang.errorWeakPassword;
+                      break;
+                    case 'wrong-password':
+                      errorMessage = lang.wrongPassword;
+                      break;
+                    case 'user-not-found':
+                    case 'INVALID_LOGIN_CREDENTIALS':
+                      errorMessage = lang.errorUserNotFound;
+                      break;
+                    default:
+                      errorMessage = state.message;
+                      break;
+                  }
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('Error: $errorMessage'),
+                  ));
                 }
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('Error: $errorMessage'),
-                ));
-              }
+              },
+            )
+          ],
+          child: BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              return Stack(
+                children: [
+                  _buildBody(context, lang, appBarTitle, buttonLabel),
+                  if (state is Loading) const CustomLoadingWidget(),
+                ],
+              );
             },
-          )
-        ],
-        child: BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
-            return Stack(
-              children: [
-                _buildBody(context, lang, appBarTitle, buttonLabel),
-                if (state is Loading) const CustomLoadingWidget(),
-              ],
-            );
-          },
+          ),
         ),
       ),
     );
@@ -138,17 +143,34 @@ abstract class AuthScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Center(child: SvgPicture.asset(flutterLogo, height: 100)),
-          SingleChildScrollView(
-            child: _buildForm(lang),
+          Expanded(
+            flex: 5,
+            child: Center(
+              child: Image.asset(
+                userFootball,
+                height: 150,
+              ),
+            ),
           ),
-          CustomButton(
-            text: buttonLabel,
-            onPressed: () {
-              if (formKey.currentState!.validate()) {
-                onButtonPressed(context);
-              }
-            },
+          Expanded(
+            flex: 4,
+            child: SingleChildScrollView(
+              child: _buildForm(lang),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: CustomButton(
+                text: buttonLabel,
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    onButtonPressed(context);
+                  }
+                },
+              ),
+            ),
           ),
         ],
       ),
@@ -158,7 +180,7 @@ abstract class AuthScreen extends StatelessWidget {
   Widget _buildForm(S lang) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 25),
       child: KeyboardActions(
         disableScroll: true,
         config: loginConfig(emailNode, pwdNode),

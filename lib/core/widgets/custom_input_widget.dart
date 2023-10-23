@@ -90,7 +90,7 @@ class CustomInput extends StatelessWidget {
           TextSpan(
             text: text,
             style: TextStyle(
-              color: Theme.of(context).colorScheme.secondary,
+              color: Theme.of(context).appBarTheme.backgroundColor!,
               fontWeight: FontWeight.w700,
             ),
           ),

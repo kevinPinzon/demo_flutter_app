@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
-
 class AppTheme {
   static ThemeData themeData() {
     return ThemeData(
-      primaryColor: Colors.grey[700],
-      scaffoldBackgroundColor: Colors.grey[100],
+      primaryColor: Colors.orange[700],
+      scaffoldBackgroundColor: Colors.orange[100],
       appBarTheme: AppBarTheme(
-        color: Colors.grey[700],
+        color: Colors.orange[700],
       ),
       cardTheme: CardTheme(
-        color: Colors.grey[200],
+        color: Colors.orange[200],
         elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -25,17 +23,17 @@ class AppTheme {
         ),
         titleLarge: TextStyle(
           fontSize: 16,
-          color: Colors.grey[600],
+          color: Colors.orange[600],
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrange),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.deepOrange),
         ),
       ),
     );
@@ -45,7 +43,7 @@ class AppTheme {
 const inputDecorationTheme = InputDecorationTheme(
   enabledBorder: OutlineInputBorder(
     borderSide: BorderSide(
-      color: onBackgroundColor,
+      color: Colors.orange,
       width: 1,
     ),
   ),

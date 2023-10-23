@@ -31,64 +31,66 @@ class ProductsScreen extends StatelessWidget {
     final S lang = S.of(context);
 
     return WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
-        child: MultiBlocProvider(
-            providers: [
-              BlocProvider<ProductBloc>(
-                create: (context) =>
-                    ProductBloc(ProductRepository())..add(LoadProductsEvent()),
-              ),
-              BlocProvider<AuthBloc>(
-                create: (context) => authBloc,
-              ),
-            ],
-            child: MultiBlocListener(
-              listeners: [
-                BlocListener<AuthBloc, AuthState>(listener: (context, state) {
-                  if (state is LogOutSuccessful) {
-                    Navigator.of(context)
-                        .pushReplacementNamed(WelcomeScreen.routeName);
-                  } else if (state is AuthError) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Error: ${state.message}'),
-                    ));
-                  }
-                })
-              ],
-              child: BlocBuilder<ProductBloc, ProductState>(
-                builder: (context, state) {
-                  if (state is ProductsLoaded) {
-                    productList = state.products;
-                  }
-                  return Scaffold(
-                      appBar: CustomAppbarWidget(
-                        user: userArgs,
-                        onTap: () {
-                          authBloc.add(LogOut());
-                          Navigator.of(context)
-                              .pushReplacementNamed(WelcomeScreen.routeName);
-                        },
-                      ),
-                      body: Stack(
-                        children: [
-                          Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 10, right: 10, top: 20, bottom: 10),
-                              child: _buildBody(context, lang)),
-                          Visibility(
-                              visible: (state is ProductsLoading),
-                              child: const CustomLoadingWidget()),
-                          Visibility(
-                              visible: state is ProductError,
-                              child: const CustomErrorWidget(
-                                  message: 'Oops! unexpected error')),
-                        ],
-                      ));
-                },
-              ),
-            )));
+      onWillPop: () async {
+        return false;
+      },
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<ProductBloc>(
+            create: (context) =>
+                ProductBloc(ProductRepository())..add(LoadProductsEvent()),
+          ),
+          BlocProvider<AuthBloc>(
+            create: (context) => authBloc,
+          ),
+        ],
+        child: MultiBlocListener(
+          listeners: [
+            BlocListener<AuthBloc, AuthState>(listener: (context, state) {
+              if (state is LogOutSuccessful) {
+                Navigator.of(context)
+                    .pushReplacementNamed(WelcomeScreen.routeName);
+              } else if (state is AuthError) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Error: ${state.message}'),
+                ));
+              }
+            })
+          ],
+          child: BlocBuilder<ProductBloc, ProductState>(
+            builder: (context, state) {
+              if (state is ProductsLoaded) {
+                productList = state.products;
+              }
+              return Scaffold(
+                  appBar: CustomAppbarWidget(
+                    user: userArgs,
+                    onTap: () {
+                      authBloc.add(LogOut());
+                      Navigator.of(context)
+                          .pushReplacementNamed(WelcomeScreen.routeName);
+                    },
+                  ),
+                  body: Stack(
+                    children: [
+                      Padding(
+                          padding: const EdgeInsets.only(
+                              left: 10, right: 10, top: 20, bottom: 10),
+                          child: _buildBody(context, lang)),
+                      Visibility(
+                          visible: (state is ProductsLoading),
+                          child: const CustomLoadingWidget()),
+                      Visibility(
+                          visible: state is ProductError,
+                          child: const CustomErrorWidget(
+                              message: 'Oops! unexpected error')),
+                    ],
+                  ));
+            },
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _buildBody(BuildContext context, S lang) {
