@@ -60,7 +60,13 @@ class ProductsScreen extends StatelessWidget {
                   }
                   return Scaffold(
                       appBar: AppBar(
-                        flexibleSpace: const CustomAppbarWidget(),
+                        flexibleSpace: CustomAppbarWidget(
+                          onTap: () {
+                            authBloc.add(LogOut());
+                            Navigator.of(context)
+                                .pushReplacementNamed(WelcomeScreen.routeName);
+                          },
+                        ),
                       ),
                       body: Stack(
                         children: [

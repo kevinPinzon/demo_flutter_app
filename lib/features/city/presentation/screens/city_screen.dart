@@ -12,6 +12,8 @@ import '../../../../core/theme/sizes.dart';
 import '../../../../core/widgets/custom_appbar_widget.dart';
 import '../../../../core/widgets/custom_loading_widget.dart';
 import '../../../../generated/l10n.dart';
+import '../../../authentication/presentation/bloc/auth_bloc.dart';
+import '../../../init/presentation/screens/welcome_screen.dart';
 import '../../../product/presentation/screens/products_screen.dart';
 import '../widgets/error_widget.dart';
 
@@ -22,6 +24,7 @@ class CityScreen extends StatelessWidget {
   CityScreen({super.key});
 
   final UserBloc userBloc = UserBloc();
+  final AuthBloc authBloc = AuthBloc();
   List<City> cityList = [];
 
   @override
@@ -61,7 +64,13 @@ class CityScreen extends StatelessWidget {
                   }
                   return Scaffold(
                       appBar: AppBar(
-                        flexibleSpace: const CustomAppbarWidget(),
+                        flexibleSpace: CustomAppbarWidget(
+                          onTap: () {
+                            authBloc.add(LogOut());
+                            Navigator.of(context)
+                                .pushReplacementNamed(WelcomeScreen.routeName);
+                          },
+                        ),
                       ),
                       body: Stack(
                         children: [
@@ -87,10 +96,6 @@ class CityScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // const Expanded(
-        //   flex: 1,
-        //   child: SizedBox(),
-        // ),
         Expanded(
           flex: 1,
           child: Center(

@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class CustomAppbarWidget extends StatelessWidget
     implements PreferredSizeWidget {
-  const CustomAppbarWidget({super.key});
+  final Function() onTap;
+  const CustomAppbarWidget({super.key, required this.onTap});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -17,7 +18,7 @@ class CustomAppbarWidget extends StatelessWidget
       actions: [
         IconButton(
           icon: const Icon(Icons.logout),
-          onPressed: () {},
+          onPressed: onTap,
         ),
       ],
       leading: IconButton(icon: const Icon(Icons.person), onPressed: () {}),
