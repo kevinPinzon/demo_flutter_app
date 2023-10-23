@@ -1,4 +1,4 @@
-# Products Demo
+# Demo Flutter App
 
 ## Características del Proyecto
 
