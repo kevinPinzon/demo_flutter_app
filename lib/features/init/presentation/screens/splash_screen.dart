@@ -43,8 +43,8 @@ class SplashScreen extends StatelessWidget {
       child: BlocListener<UserBloc, UserState>(
         listener: (context, state) {
           if (state is UserFetched) {
-            Navigator.of(context)
-                .pushReplacementNamed(ProductsScreen.routeName);
+            Navigator.of(context).pushReplacementNamed(ProductsScreen.routeName,
+                arguments: state.user);
           } else if (state is UserNotFound) {
             Navigator.of(context).pushReplacementNamed(CityScreen.routeName);
           } else if (state is UserFailure) {

@@ -48,8 +48,9 @@ class CityScreen extends StatelessWidget {
               listeners: [
                 BlocListener<UserBloc, UserState>(listener: (context, state) {
                   if (state is UserSuccess) {
-                    Navigator.of(context)
-                        .pushReplacementNamed(ProductsScreen.routeName);
+                    Navigator.of(context).pushReplacementNamed(
+                        ProductsScreen.routeName,
+                        arguments: state.user);
                   } else if (state is UserFailure) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text('Error: ${state.message}'),
@@ -63,14 +64,12 @@ class CityScreen extends StatelessWidget {
                     cityList = state.cities;
                   }
                   return Scaffold(
-                      appBar: AppBar(
-                        flexibleSpace: CustomAppbarWidget(
-                          onTap: () {
-                            authBloc.add(LogOut());
-                            Navigator.of(context)
-                                .pushReplacementNamed(WelcomeScreen.routeName);
-                          },
-                        ),
+                      appBar: CustomAppbarWidget(
+                        onTap: () {
+                          authBloc.add(LogOut());
+                          Navigator.of(context)
+                              .pushReplacementNamed(WelcomeScreen.routeName);
+                        },
                       ),
                       body: Stack(
                         children: [

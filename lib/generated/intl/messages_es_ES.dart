@@ -26,6 +26,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "alreadyHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("¿Ya tienes una cuenta?"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
+        "citySelectedTitle":
+            MessageLookupByLibrary.simpleMessage("Ciudad seleccionada:"),
         "cityText":
             MessageLookupByLibrary.simpleMessage("Selecciona una ciudad:"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Crear cuenta"),
@@ -34,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailHintText":
             MessageLookupByLibrary.simpleMessage("Ingresa tu Email"),
+        "emailSelectedTitle":
+            MessageLookupByLibrary.simpleMessage("Correo electrónico:"),
         "enterPassword":
             MessageLookupByLibrary.simpleMessage("Ingresa tu contraseña"),
         "errorEmailAlreadyUse": MessageLookupByLibrary.simpleMessage(
@@ -53,6 +57,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Contraseña"),
         "passwordHintText":
             MessageLookupByLibrary.simpleMessage("Ingresa tu contraseña"),
+        "productsText":
+            MessageLookupByLibrary.simpleMessage("Productos en tendencia"),
         "registerSuccessful": MessageLookupByLibrary.simpleMessage(
             "¡Tu registro ha sido exitoso!"),
         "registerWith": MessageLookupByLibrary.simpleMessage("REGÍSTRATE CON"),

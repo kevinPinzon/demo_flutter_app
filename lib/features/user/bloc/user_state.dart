@@ -13,7 +13,13 @@ class UserInitial extends UserState {}
 
 class UserLoading extends UserState {}
 
-class UserSuccess extends UserState {}
+class UserSuccess extends UserState {
+  final UserModel user;
+
+  const UserSuccess(this.user);
+  @override
+  List<Object?> get props => [user];
+}
 
 class UserFailure extends UserState {
   final String message;
@@ -24,7 +30,7 @@ class UserFailure extends UserState {
 }
 
 class UserFetched extends UserState {
-  final User user;
+  final UserModel user;
 
   const UserFetched(this.user);
 

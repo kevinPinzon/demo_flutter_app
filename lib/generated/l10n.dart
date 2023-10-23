@@ -299,6 +299,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Trending Products`
+  String get productsText {
+    return Intl.message(
+      'Trending Products',
+      name: 'productsText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `City selected:`
+  String get citySelectedTitle {
+    return Intl.message(
+      'City selected:',
+      name: 'citySelectedTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email:`
+  String get emailSelectedTitle {
+    return Intl.message(
+      'Email:',
+      name: 'emailSelectedTitle',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

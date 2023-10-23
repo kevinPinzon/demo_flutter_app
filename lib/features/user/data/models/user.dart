@@ -1,20 +1,20 @@
 import 'package:equatable/equatable.dart';
 
 // ignore: must_be_immutable
-class User extends Equatable {
+class UserModel extends Equatable {
   final String userId;
   final String cityName;
 
   // id is the document id
   String? id;
 
-  User({
+  UserModel({
     required this.cityName,
     required this.userId,
   });
 
-  factory User.fromMap(Map<String, dynamic> map) {
-    return User(
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
       userId: map['userId'],
       cityName: map['cityName'],
     );

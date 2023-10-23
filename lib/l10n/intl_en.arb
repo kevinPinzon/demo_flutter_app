@@ -23,5 +23,8 @@
   "errorWeakPassword": "The password provided is too weak.",
   "errorUserNotFound": "No user found for that email.",
   "wrongPassword": "Wrong password provided for that user.",
-  "cityText": "Choose A city:"
+  "cityText": "Choose A city:",
+  "productsText": "Trending Products",
+  "citySelectedTitle": "City selected:",
+  "emailSelectedTitle": "Email:"
 }

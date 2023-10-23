@@ -11,33 +11,33 @@ class UserRepository {
     String cityName,
     String userId,
   ) async {
-    final User user = User(cityName: cityName, userId: userId);
+    final UserModel user = UserModel(cityName: cityName, userId: userId);
     await _db.addDocument(
       "users",
       user.toMap(),
     );
   }
 
-  Future<User?> fetchUsers(String userId) async {
-    User? user;
+  Future<UserModel?> fetchUsers(String userId) async {
+    UserModel? user;
     final DocumentSnapshot? document = await _db.getDocumentWithQuery(
       "users",
       "userId",
       userId,
     );
     if (document != null) {
-      user = User.fromMap(document.data() as Map<String, dynamic>);
+      user = UserModel.fromMap(document.data() as Map<String, dynamic>);
       return user;
     } else{
       return user;
     }
   }
 
-  Future<User?> fetchUser(String userId) async {
+  Future<UserModel?> fetchUser(String userId) async {
     final DocumentSnapshot? snapshot = await _db.getDocumentWithQuery("users", "userId", userId);
 
     if (snapshot != null && snapshot.exists) {
-      return User.fromMap(snapshot.data() as Map<String, dynamic>);
+      return UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
     } else {
       return null;
     }

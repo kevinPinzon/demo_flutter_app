@@ -19,11 +19,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<AddUser>((event, emit) {
       try {
         emit(UserLoading());
+        UserModel user = UserModel(cityName: event.cityName, userId: event.userId);
         _userRepository.addUser(
-          event.cityName,
-          event.userId,
+          user.cityName,
+          user.userId,
         );
-        emit(UserSuccess());
+        emit(UserSuccess(user));
       } catch (e, s) {
         log(e.toString());
         log(s.toString());
@@ -33,7 +34,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<FetchUser>((event, emit) async {
       try {
         emit(UserLoading());
-        User? user;
+        UserModel? user;
         user = await _userRepository.fetchUser(
           event.userId,
         );

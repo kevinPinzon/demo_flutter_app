@@ -1,6 +1,8 @@
+import 'package:demo_flutter_app/features/user/data/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/theme/sizes.dart';
 import '../../../../core/widgets/custom_appbar_widget.dart';
 import '../../../../core/widgets/custom_loading_widget.dart';
 import '../../../../generated/l10n.dart';
@@ -17,7 +19,9 @@ import '../widgets/product_card.dart';
 class ProductsScreen extends StatelessWidget {
   static const routeName = 'product/products-screen';
 
-  ProductsScreen({super.key});
+  final UserModel userArgs;
+
+  ProductsScreen({super.key, required this.userArgs});
 
   final AuthBloc authBloc = AuthBloc();
   List<Product> productList = [];
@@ -59,14 +63,13 @@ class ProductsScreen extends StatelessWidget {
                     productList = state.products;
                   }
                   return Scaffold(
-                      appBar: AppBar(
-                        flexibleSpace: CustomAppbarWidget(
-                          onTap: () {
-                            authBloc.add(LogOut());
-                            Navigator.of(context)
-                                .pushReplacementNamed(WelcomeScreen.routeName);
-                          },
-                        ),
+                      appBar: CustomAppbarWidget(
+                        user: userArgs,
+                        onTap: () {
+                          authBloc.add(LogOut());
+                          Navigator.of(context)
+                              .pushReplacementNamed(WelcomeScreen.routeName);
+                        },
                       ),
                       body: Stack(
                         children: [
@@ -92,6 +95,18 @@ class ProductsScreen extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        Expanded(
+          flex: 1,
+          child: Center(
+            child: Text(
+              lang.productsText,
+              style: const TextStyle(
+                fontSize: bigTextSize,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
         _productList(),
       ],
     );
@@ -99,6 +114,7 @@ class ProductsScreen extends StatelessWidget {
 
   Expanded _productList() {
     return Expanded(
+      flex: 9,
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,

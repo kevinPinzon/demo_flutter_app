@@ -1,4 +1,5 @@
 import 'package:demo_flutter_app/features/city/presentation/screens/city_screen.dart';
+import 'package:demo_flutter_app/features/user/data/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -29,7 +30,9 @@ class PageClassGenerator {
         builder = (context) => CityScreen();
         break;
       case ProductsScreen.routeName:
-        builder = (context) => ProductsScreen();
+        builder = (context) => ProductsScreen(
+          userArgs: routeSettings.arguments as UserModel,
+            );
         break;
       default:
         builder = (context) => const Material(
