@@ -14,7 +14,7 @@ class PageClassGenerator {
 
     switch (routeSettings.name) {
       case SplashScreen.routeName:
-        builder = (context) => const SplashScreen();
+        builder = (context) => SplashScreen();
         break;
       case WelcomeScreen.routeName:
         builder = (context) => const WelcomeScreen();

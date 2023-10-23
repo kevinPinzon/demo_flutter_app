@@ -18,15 +18,22 @@ class FirestoreDatabase {
   }
 
   // get document from collection where field == value
-  Future<QuerySnapshot> getDocumentsWithQuery(
+  Future<DocumentSnapshot?> getDocumentWithQuery(
     String collectionName,
     Object field,
     Object value,
   ) async {
-    return await _firebaseFirestore
+    final QuerySnapshot querySnapshot = await _firebaseFirestore
         .collection(collectionName)
         .where(field, isEqualTo: value)
+        .limit(1)
         .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      return querySnapshot.docs.first;
+    } else {
+      return null;
+    }
   }
 
   Future<void> addDocument(
