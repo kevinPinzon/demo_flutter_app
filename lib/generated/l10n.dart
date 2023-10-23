@@ -329,6 +329,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Oops! unexpected error`
+  String get errorMessage {
+    return Intl.message(
+      'Oops! unexpected error',
+      name: 'errorMessage',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

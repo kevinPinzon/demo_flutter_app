@@ -46,6 +46,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ingresa un email válido"),
         "errorInvalidPassword": MessageLookupByLibrary.simpleMessage(
             "Ingresa una contraseña válida"),
+        "errorMessage":
+            MessageLookupByLibrary.simpleMessage("Oops! Error inesperado"),
         "errorUserNotFound": MessageLookupByLibrary.simpleMessage(
             "No se ha encontrado ningún usuario para ese correo electrónico."),
         "errorWeakPassword": MessageLookupByLibrary.simpleMessage(

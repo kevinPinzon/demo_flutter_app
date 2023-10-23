@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:demo_flutter_app/features/city/data/models/city.dart';
 import 'package:demo_flutter_app/features/city/presentation/bloc/city_bloc.dart';
 import 'package:demo_flutter_app/features/city/presentation/widgets/city_card.dart';
@@ -11,11 +9,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/sizes.dart';
 import '../../../../core/widgets/custom_appbar_widget.dart';
 import '../../../../core/widgets/custom_loading_widget.dart';
+import '../../../../core/widgets/error_widget.dart';
 import '../../../../generated/l10n.dart';
 import '../../../authentication/presentation/bloc/auth_bloc.dart';
 import '../../../init/presentation/screens/welcome_screen.dart';
 import '../../../product/presentation/screens/products_screen.dart';
-import '../widgets/error_widget.dart';
 
 // ignore: must_be_immutable
 class CityScreen extends StatelessWidget {
@@ -82,8 +80,8 @@ class CityScreen extends StatelessWidget {
                               child: const CustomLoadingWidget()),
                           Visibility(
                               visible: state is CityError,
-                              child: const CustomErrorWidget(
-                                  message: 'Oops! unexpected error')),
+                              child: CustomErrorWidget(
+                                  message: lang.errorMessage)),
                         ],
                       ));
                 },

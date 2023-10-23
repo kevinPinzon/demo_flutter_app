@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:demo_flutter_app/features/user/data/repositories/user_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -19,15 +17,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<AddUser>((event, emit) {
       try {
         emit(UserLoading());
-        UserModel user = UserModel(cityName: event.cityName, userId: event.userId);
+        UserModel user =
+            UserModel(cityName: event.cityName, userId: event.userId);
         _userRepository.addUser(
           user.cityName,
           user.userId,
         );
         emit(UserSuccess(user));
-      } catch (e, s) {
-        log(e.toString());
-        log(s.toString());
+      } catch (e) {
         emit(UserFailure(e.toString()));
       }
     });
@@ -43,9 +40,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         } else {
           emit(UserNotFound());
         }
-      } catch (e, s) {
-        log(e.toString());
-        log(s.toString());
+      } catch (e) {
         emit(UserFailure(e.toString()));
       }
     });

@@ -26,5 +26,7 @@
   "cityText": "Choose A city:",
   "productsText": "Trending Products",
   "citySelectedTitle": "City selected:",
-  "emailSelectedTitle": "Email:"
+  "emailSelectedTitle": "Email:",
+  "errorMessage": "Oops! unexpected error"
+
 }

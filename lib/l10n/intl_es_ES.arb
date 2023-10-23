@@ -26,5 +26,6 @@
   "cityText": "Selecciona una ciudad:",
   "productsText": "Productos en tendencia",
   "citySelectedTitle": "Ciudad seleccionada:",
-  "emailSelectedTitle": "Correo electrónico:"
+  "emailSelectedTitle": "Correo electrónico:",
+  "errorMessage": "Oops! Error inesperado"
 }

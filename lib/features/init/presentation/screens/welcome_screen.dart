@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/routes/resource_images.dart';
-import '../../../../core/theme/sizes.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../../generated/l10n.dart';
 import '../../../authentication/presentation/screens/login_screen.dart';
@@ -16,11 +14,17 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final S lang = S.of(context);
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
         appBar: AppBar(
           title: Text(lang.title),
         ),
-        body: _bodyScreen(context, lang));
+        body: _bodyScreen(context, lang),
+      ),
+    );
   }
 
   Widget _bodyScreen(BuildContext context, S lang) {

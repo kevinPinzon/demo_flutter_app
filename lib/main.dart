@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Demo App',
+      title: 'Sport App',
       theme: AppTheme.themeData(),
       debugShowCheckedModeBanner: false,
       initialRoute: SplashScreen.routeName,

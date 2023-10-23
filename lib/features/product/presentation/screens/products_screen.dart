@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/sizes.dart';
 import '../../../../core/widgets/custom_appbar_widget.dart';
 import '../../../../core/widgets/custom_loading_widget.dart';
+import '../../../../core/widgets/error_widget.dart';
 import '../../../../generated/l10n.dart';
 import '../../../authentication/presentation/bloc/auth_bloc.dart';
 
@@ -12,7 +13,6 @@ import '../../../init/presentation/screens/welcome_screen.dart';
 import '../../data/models/product.dart';
 import '../../data/repositories/product_repository.dart';
 import '../bloc/product_bloc.dart';
-import '../widgets/error_widget.dart';
 import '../widgets/product_card.dart';
 
 // ignore: must_be_immutable
@@ -82,8 +82,8 @@ class ProductsScreen extends StatelessWidget {
                           child: const CustomLoadingWidget()),
                       Visibility(
                           visible: state is ProductError,
-                          child: const CustomErrorWidget(
-                              message: 'Oops! unexpected error')),
+                          child: CustomErrorWidget(
+                              message: lang.errorMessage)),
                     ],
                   ));
             },
